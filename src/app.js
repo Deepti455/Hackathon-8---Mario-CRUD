@@ -63,6 +63,7 @@ app.patch("/mario/:id",async(req,res)=>{
 app.delete("/mario/:id",async(req,res)=>{
     const idToSearch=req.params.id;
     try{
+        await marioModel.findById(idToSearch);
         await marioModel.deleteOne({_id: idToSearch});
         res.send({message: 'character deleted'});
     }catch(err){
