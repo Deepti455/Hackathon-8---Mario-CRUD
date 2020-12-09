@@ -19,12 +19,7 @@ app.get("/mario",async(req,res)=>{
 app.get("/mario/:id",async(req,res)=>{
     const idToSearch= req.params.id;
     try{
-    const dataId= await marioModel.findById(idToSearch);
-    if(dataId == null){
-        res.status(400).send({message: "id not found"});
-    }else{
-        res.send(dataId);
-    }
+        res.send(await marioModel.findById(idToSearch));
     }catch(err){
         res.status(400).send({message: err.message});
     }
@@ -58,10 +53,10 @@ app.patch("/mario/:id",async(req,res)=>{
             data.weight = newMario.weight
        }
        await data.save();
-       res.send(data);
+       res.status(201).send(data);
     }  
 }catch(err){
-    res.status(400).send({message: error.message});
+    res.status(400).send({message: err.message});
 } 
 });
 
@@ -71,7 +66,7 @@ app.delete("/mario/:id",async(req,res)=>{
         await marioModel.deleteOne({_id: idToSearch});
         res.send({message: 'character deleted'});
     }catch(err){
-        res.status(400).send({message: error.message});
+        res.status(400).send({message: err.message});
     }
 });
 
