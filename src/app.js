@@ -17,11 +17,11 @@ app.get("/mario",async(req,res)=>{
 });
 
 app.get("/mario/:id",async(req,res)=>{
-    const idToSearch= req.params.id;
+    const id= req.params.id;
     try{
-        res.send(await marioModel.findById(idToSearch));
-    }catch(err){
-        res.status(400).send({message: err.message});
+        res.send(await marioModel.findById(id));
+    }catch(error){
+        res.status(400).send({message: error.message});
     }
 });
 
@@ -55,8 +55,8 @@ app.patch("/mario/:id",async(req,res)=>{
        await data.save();
        res.send(data);
     }  
-}catch(err){
-    res.status(400).send({message: err.message});
+}catch(error){
+    res.status(400).send({message: error.message});
 } 
 });
 
@@ -66,8 +66,8 @@ app.delete("/mario/:id",async(req,res)=>{
         await marioModel.findById(idToSearch);
         await marioModel.deleteOne({_id: idToSearch});
         res.send({message: 'character deleted'});
-    }catch(err){
-        res.status(400).send({message: err.message});
+    }catch(error){
+        res.status(400).send({message: error.message});
     }
 });
 
