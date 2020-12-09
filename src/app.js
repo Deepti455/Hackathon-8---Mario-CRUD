@@ -43,7 +43,7 @@ app.patch("/mario/:id",async(req,res)=>{
     const newMario = req.body;
     try{
     const data = await marioModel.findById(idToupdate);
-    if(nullOrUndefined(newMario.name) || nullOrUndefined(newMario.weight)){
+    if(nullOrUndefined(newMario.name) && nullOrUndefined(newMario.weight)){
         res.status(400).send({message: 'either name or weight is missing'});
     }else{
         if(!nullOrUndefined(newMario.name)){
